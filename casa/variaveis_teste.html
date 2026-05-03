@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: monospace; background: #f4f4f4; padding: 24px; font-size: 13px; color: #222; }
+  h2 { font-size: 14px; margin-bottom: 16px; }
+  .row { padding: 5px 0; border-bottom: 1px solid #e0e0e0; max-width: 500px; }
+  .key { color: #888; }
+  .val { color: #111; font-weight: bold; }
+  .vazio { color: #ccc; font-style: italic; }
+</style>
+</head>
+<body>
+
+<h2>🔍 Variáveis</h2>
+<div id="lista"></div>
+
+<script>
+  // ✏️ EDITE AQUI
+  const dados = {
+  anfitriao: "Arethusa",
+  nomeCasa: "BarnHouse",
+  capmax: "10 hóspedes",
+  cantquartos: "4 quartos",
+  nomewifi: "MEGAFIBRA_BARNHOUSE",
+  senhawifi: "caete1444",
+  acesso: "Entrega Pessoal de chaves e controle",
+  codigoacesso: "",
+  checkin: "A partir das 14:00h",
+  checkout: "Até as 15:00h"
+}
+
+  // renderiza
+  const lista = document.getElementById('lista');
+  Object.entries(dados).forEach(([k, v]) => {
+    const vazio = v === '' || v == null;
+    lista.innerHTML += `<div class="row"><span class="key">${k}:</span> <span class="${vazio ? 'vazio' : 'val'}">"${vazio ? '—' : v}"</span></div>`;
+  });
+</script>
+
+</body>
+</html>

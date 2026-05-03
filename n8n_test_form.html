@@ -56,26 +56,30 @@
 <pre id="output" style="display:none"></pre>
 
 <script>
-function gerar() {
+async function gerar() {
   const f = document.getElementById('form');
   const v = (name) => f.querySelector(`[name="${name}"]`).value.trim() || '';
 
   const dados = {
     anfitriao: v('anfitriao'),
     nomeCasa: v('nomeCasa'),
-    capmax: v('capmax') + ' hóspedes',
-    cantquartos: v('cantquartos') + ' quartos',
+    capmax: v('capmax'),
+    cantquartos: v('cantquartos'),
     nomewifi: v('nomewifi'),
     senhawifi: v('senhawifi'),
     acesso: v('acesso'),
     codigoacesso: v('codigoacesso'),
-    checkin: 'A partir das ' + v('checkin') + 'h',
-    checkout: 'Até as ' + v('checkout') + 'h',
+    checkin: v('checkin'),
+    checkout: v('checkout'),
   };
 
-  const out = document.getElementById('output');
-  out.style.display = 'block';
-  out.textContent = JSON.stringify(dados, null, 2);
+  await fetch('https://seudominio.n8n.io/webhook/formulario-casa', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  });
+
+  alert('✅ Enviado! A página será gerada em instantes.');
 }
 </script>
 

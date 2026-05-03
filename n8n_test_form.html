@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Teste de Variáveis</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: monospace; background: #f4f4f4; padding: 24px; color: #222; }
+  h2 { margin-bottom: 16px; font-size: 16px; }
+  form { background: #fff; padding: 20px; border: 1px solid #ccc; max-width: 500px; }
+  label { display: block; font-size: 12px; margin-bottom: 4px; margin-top: 12px; color: #555; }
+  input { width: 100%; padding: 6px 8px; border: 1px solid #bbb; font-family: monospace; font-size: 13px; }
+  button { margin-top: 20px; padding: 8px 16px; background: #222; color: #fff; border: none; cursor: pointer; font-family: monospace; }
+  button:hover { background: #444; }
+  pre { margin-top: 24px; background: #111; color: #0f0; padding: 16px; font-size: 12px; white-space: pre-wrap; max-width: 500px; border: 1px solid #333; }
+</style>
+</head>
+<body>
+
+<h2>🧪 Teste de Variáveis — Formulário Curto</h2>
+
+<form id="form">
+  <label>Nome do Anfitrião</label>
+  <input name="anfitriao" placeholder="Ex: João Silva">
+
+  <label>Nome da Casa / Identificação</label>
+  <input name="nomeCasa" placeholder="Ex: Apto Centro SP">
+
+  <label>Capacidade máxima de hóspedes</label>
+  <input name="capmax" placeholder="Ex: 4">
+
+  <label>Número de quartos</label>
+  <input name="cantquartos" placeholder="Ex: 2">
+
+  <label>Nome da rede Wi-Fi</label>
+  <input name="nomewifi" placeholder="Ex: Casa_Joao_5G">
+
+  <label>Senha do Wi-Fi</label>
+  <input name="senhawifi" placeholder="Ex: 12345678">
+
+  <label>Tipo de acesso à casa</label>
+  <input name="acesso" placeholder="Ex: Chave / Código / Chaveiro">
+
+  <label>Código de acesso</label>
+  <input name="codigoacesso" placeholder="Ex: 1234#">
+
+  <label>Horário de check-in</label>
+  <input name="checkin" placeholder="Ex: 14">
+
+  <label>Horário de check-out</label>
+  <input name="checkout" placeholder="Ex: 11">
+
+  <button type="button" onclick="gerar()">▶ Gerar Variáveis</button>
+</form>
+
+<pre id="output" style="display:none"></pre>
+
+<script>
+function gerar() {
+  const f = document.getElementById('form');
+  const v = (name) => f.querySelector(`[name="${name}"]`).value.trim() || '';
+
+  const dados = {
+    anfitriao: v('anfitriao'),
+    nomeCasa: v('nomeCasa'),
+    capmax: v('capmax') + ' hóspedes',
+    cantquartos: v('cantquartos') + ' quartos',
+    nomewifi: v('nomewifi'),
+    senhawifi: v('senhawifi'),
+    acesso: v('acesso'),
+    codigoacesso: v('codigoacesso'),
+    checkin: 'A partir das ' + v('checkin') + 'h',
+    checkout: 'Até as ' + v('checkout') + 'h',
+  };
+
+  const out = document.getElementById('output');
+  out.style.display = 'block';
+  out.textContent = JSON.stringify(dados, null, 2);
+}
+</script>
+
+</body>
+</html>

@@ -73,7 +73,7 @@ async function gerar() {
     checkout: v('checkout'),
   };
 
-  await fetch('https://wingedanteater-n8n.cloudfy.live/webhook-test/formulario-casa', {
+  await fetch('https://wingedanteater-n8n.cloudfy.live/webhook/formulario-casa', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dados)

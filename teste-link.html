@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste</title>
+  <style>
+    body { font-family: monospace; padding: 24px; background: #f4f4f4; }
+    input { width: 100%; padding: 8px; margin-bottom: 12px; font-size: 13px; }
+    button { padding: 8px 16px; background: #222; color: #fff; border: none; cursor: pointer; }
+    pre { background: #111; color: #0f0; padding: 16px; white-space: pre-wrap; font-size: 12px; margin-top: 20px; max-height: 400px; overflow-y: auto; }
+    .status { margin-top: 12px; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+
+  <h2>🧪 Teste — Fetch Airbnb</h2>
+
+  <input id="url" type="text" placeholder="Cole o link do Airbnb aqui..." />
+  <button onclick="testar()">▶ Buscar HTML</button>
+
+  <div class="status" id="status"></div>
+  <pre id="output" style="display:none"></pre>
+
+  <script>
+    async function testar() {
+      const url = document.getElementById('url').value.trim();
+      const status = document.getElementById('status');
+      const output = document.getElementById('output');
+
+      if (!url) { status.textContent = '⚠️ Cola um link primeiro.'; return; }
+
+      status.textContent = '⏳ Buscando...';
+      output.style.display = 'none';
+
+      try {
+        const res = await fetch('/.netlify/functions/fetch-airbnb', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+          status.textContent = '❌ Erro: ' + data.error;
+          return;
+        }
+
+        status.textContent = '✅ HTML recebido! (' + data.html.length + ' caracteres)';
+        output.style.display = 'block';
+        output.textContent = data.html.slice(0, 3000) + '\n\n... (truncado)';
+
+      } catch (err) {
+        status.textContent = '❌ Erro: ' + err.message;
+      }
+    }
+  </script>
+
+</body>
+</html>

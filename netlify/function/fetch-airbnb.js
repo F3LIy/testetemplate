@@ -13,13 +13,19 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ html })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        html,
+        status: response.status,
+        tamanho: html.length
+      })
     };
 
   } catch (err) {
     return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message })
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: err.message, stack: err.stack })
     };
   }
 };

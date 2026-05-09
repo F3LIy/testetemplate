@@ -1,2 +1,2 @@
-[function]
-  directory = "https://friendly-biscotti-c77ac1.netlify.app/netlify/function/"
+[functions]
+  directory = "https://friendly-biscotti-c77ac1.netlify.app/netlify/functions/"

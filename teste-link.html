@@ -31,7 +31,7 @@
     output.style.display = 'none';
 
     try {
-      const res = await fetch('/.netlify/functions/fetch-airbnb', {
+      const res = await fetch('https://friendly-biscotti-c77ac1.netlify.app/netlify/function/fetch-airbnb.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url })

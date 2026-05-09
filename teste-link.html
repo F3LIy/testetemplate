@@ -21,40 +21,29 @@
   <div class="status" id="status"></div>
   <pre id="output" style="display:none"></pre>
 
-  <script>
-    async function testar() {
-      const url = document.getElementById('url').value.trim();
-      const status = document.getElementById('status');
-      const output = document.getElementById('output');
+<script>
+  async function testar() {
+    const url = document.getElementById('url').value.trim();
+    const status = document.getElementById('status');
+    const output = document.getElementById('output');
+    if (!url) { status.textContent = '⚠️ Cola um link primeiro.'; return; }
+    status.textContent = '⏳ Buscando...';
+    output.style.display = 'none';
 
-      if (!url) { status.textContent = '⚠️ Cola um link primeiro.'; return; }
-
-      status.textContent = '⏳ Buscando...';
-      output.style.display = 'none';
-
-      try {
-        const res = await fetch('/.netlify/functions/fetch-airbnb', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url })
-        });
-
-        const data = await res.json();
-
-        if (data.error) {
-          status.textContent = '❌ Erro: ' + data.error;
-          return;
-        }
-
-        status.textContent = '✅ HTML recebido! (' + data.html.length + ' caracteres)';
-        output.style.display = 'block';
-        output.textContent = data.html.slice(0, 3000) + '\n\n... (truncado)';
-
-      } catch (err) {
-        status.textContent = '❌ Erro: ' + err.message;
-      }
+    try {
+      const res = await fetch('/.netlify/functions/fetch-airbnb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const text = await res.text();
+      console.log('resposta crua:', text);
+      status.textContent = '📄 Resposta crua: ' + text.slice(0, 300);
+    } catch (err) {
+      status.textContent = '❌ Erro: ' + err.message;
     }
-  </script>
+  }  // ← esse fechava a função testar()
+</script>
 
 </body>
 </html>
